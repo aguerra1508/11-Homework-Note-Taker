@@ -17,33 +17,33 @@ app.use(express.static("public"));
 
 //routes
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "Develop/public/index.html"));    
+    res.sendFile(path.join(__dirname, "/public/index.html"));    
 });
 
 app.get("/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "Develop/public/notes.html"));
+    res.sendFile(path.join(__dirname, "/public/notes.html"));
 });
 
 //api route
 app.get("/api/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "Develop/db/db.json"))
+    res.sendFile(path.join(__dirname, "db/db.json"))
 });
 
 // new note
 app.post("/api/notes", function (req, res) {
-    var savedNotes = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf8"));
+    var savedNotes = JSON.parse(fs.readFileSync("db/db.json", "utf8"));
     var newNote = req.body;
     var noteID = (savedNotes.length).toString();
     newNote.id = noteID;
     savedNotes.push(newNote);
-    fs.writeFileSync("Develop/db/db.json", JSON.stringify(savedNotes));
+    fs.writeFileSync("db/db.json", JSON.stringify(savedNotes));
     console.log(`${noteID} is saved.`)
     res.json(savedNotes);
 });
 
 // delete note
 app.delete("/api/notes/:id", function(req, res){
-    var savedNotes = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf8"));
+    var savedNotes = JSON.parse(fs.readFileSync("db/db.json", "utf8"));
     var noteID = req.params.id;
     console.log(`${noteID} is deleted.`);
     savedNotes = savedNotes.filter(currentNote => {
