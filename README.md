@@ -20,9 +20,9 @@ An application that can be used to write, save, and delete notes. This applicati
 
 Visual Studio (VS) code and a web browser such as Google Chrome are needed. 
 
-To run the application via VS code, the user must run `npm init` and `npm i express` to install the necessary `package-lock.json` and `node_modules`.
+To run the application via VS code, the user must run `npm init` and `npm i express` to install the necessary `package-lock.json` and `node_modules`. Once the installs are complete, the application may be run via `node server.js`.
 
-The application is also deployed via Heroku and can be accessed via the following link:
+The application is also deployed via Heroku and can be accessed via the following link: https://murmuring-harbor-46677.herokuapp.com/
 
 ## Usage
 
@@ -42,6 +42,8 @@ None
 ## Badges
 
 ![GitHub top language](https://img.shields.io/github/languages/top/aguerra1508/11-Homework-Note-taker)
+
+![W3C Validation](https://img.shields.io/w3c-validation/html?targetUrl=https%3A%2F%2Fmurmuring-harbor-46677.herokuapp.com%2F)
 
 ## Contributing
 
