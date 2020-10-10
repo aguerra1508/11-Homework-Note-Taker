@@ -3,8 +3,6 @@ var express = require("express");
 var path = require("path");
 var fs = require('fs');
 var util = require('util');
-var readFileAsync = util.promisify(fs.readFile);
-var writeFileAsync = util.promisify(fs.writeFile);
 
 // express
 var app = express();
@@ -15,6 +13,7 @@ var PORT = process.env.PORT || 8080;
 // express app set up
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
 
 //routes
 app.get("/", function (req, res) {
@@ -25,20 +24,34 @@ app.get("/notes", function (req, res) {
     res.sendFile(path.join(__dirname, "Develop/public/notes.html"));
 });
 
-// api routes
-app.get("/api/notes", function(req, res) {
-  return readFileAsync("Develop/db/db.json", "utf8")
-  .then(function (result, error){
-      if (error) console.log(error);
-      return res.json(JSON.parse(result));
-  });
+//api route
+app.get("/api/notes", function (req, res) {
+    res.sendFile(path.join(__dirname, "Develop/db/db.json"))
 });
 
-app.post("/api/notes", function(req, res) {
-  var newNote = req.body;
-  console.log(newNote);
+// new note
+app.post("/api/notes", function (req, res) {
+    var savedNotes = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf8"));
+    var newNote = req.body;
+    var noteID = (savedNotes.length).toString();
+    newNote.id = noteID;
+    savedNotes.push(newNote);
+    fs.writeFileSync("Develop/db/db.json", JSON.stringify(savedNotes));
+    console.log(`${noteID} is saved.`)
+    res.json(savedNotes);
 });
 
+// delete note
+app.delete("/api/notes/:id", function(req, res){
+    var savedNotes = JSON.parse(fs.readFileSync("Develop/db/db.json", "utf8"));
+    var noteID = req.params.id;
+    console.log(`${noteID} is deleted.`);
+    savedNotes = savedNotes.filter(currentNote => {
+        return currentNote.id != noteID;
+    })
+    fs.writeFileSync("db/db.json", JSON.stringify(savedNotes));
+    res.json(savedNotes);
+});
 
 // listener
 app.listen(PORT, function () {
