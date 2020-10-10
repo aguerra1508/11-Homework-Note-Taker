@@ -2,7 +2,7 @@
 
 ## Description
 
-An application that can be used to write, save, and delete notes. This application uses an express backend and save and retrieve note data from a JSON file. This applicaiton can be used to help organize thoughts and keep track of tasks which need to be completed. Since the notes are saved and stored, this also allows the users to have written information which can be readily recalled and is available when needed.
+An application that can be used to write, save, and delete notes. This application uses an express backend and saves and retrieves note data from a JSON file. This application can be used to help organize thoughts and keep track of tasks which need to be completed. Since the notes are saved and stored, this also allows the users to readily recall informaton so it may be available when needed.
 
 ## Table of Contents
 
